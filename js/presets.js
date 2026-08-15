@@ -14,3 +14,21 @@ const BUILTIN_PRESETS=[
  {name:'Glitch Object',icon:'📺',animations:[['shake',{amplitude:2,duration:.35}]],effects:[['glitch',{intensity:8}],['rgb',{intensity:5}],['flicker',{intensity:25}]]}
 ];
 const defaultConfig=()=>({version:1,name:'Новый игровой ассет',asset:null,transform:{x:0,y:0,scale:1,rotation:0},animations:[],effects:[],particles:{enabled:false,type:'sparkles',count:35,size:3,speed:25,spread:360,lifetime:1.8,gravity:0,opacity:.85,color:'#b99cff',randomColor:false,area:'around'},interactions:{hover:{scale:1,glow:0,brightness:100,rotate:0,shake:false,pulse:false},click:{bounce:true,squash:false,flash:false,shake:false,burst:true},burst:{count:30,force:90,size:4,lifetime:.8,color:'#d7c8ff'}}});
+
+// Схемы параметров используются и редактором, и движком эффектов.
+const EFFECT_CONTROLS={
+ glow:{radius:{label:'Радиус',min:0,max:60,step:1,unit:' px',value:18},strength:{label:'Сила',min:0,max:100,step:1,unit:'%',value:70},color:{label:'Цвет',type:'color',value:'#8b5cf6'},pulse:{label:'Пульсация',type:'toggle',value:false}},
+ neon:{radius:{label:'Радиус',min:0,max:60,step:1,unit:' px',value:22},strength:{label:'Сила',min:0,max:100,step:1,unit:'%',value:80},color:{label:'Цвет',type:'color',value:'#4de2e8'}},
+ outline:{width:{label:'Толщина',min:1,max:12,step:1,unit:' px',value:2},color:{label:'Цвет',type:'color',value:'#ffffff'}},
+ shadow:{x:{label:'Смещение X',min:-50,max:50,step:1,unit:' px',value:8},y:{label:'Смещение Y',min:-50,max:50,step:1,unit:' px',value:12},blur:{label:'Размытие',min:0,max:60,step:1,unit:' px',value:18},opacity:{label:'Прозрачность',min:0,max:100,step:1,unit:'%',value:55},color:{label:'Цвет',type:'color',value:'#000000'}},
+ blur:{radius:{label:'Размытие',min:0,max:20,step:.5,unit:' px',value:3}},
+ tint:{amount:{label:'Насыщенность цвета',min:0,max:100,step:1,unit:'%',value:35},color:{label:'Цвет',type:'color',value:'#9b71ff'}},
+ grayscale:{amount:{label:'Интенсивность',min:0,max:100,step:1,unit:'%',value:100}},opacity:{amount:{label:'Прозрачность',min:0,max:100,step:1,unit:'%',value:70}},
+ flicker:{frequency:{label:'Частота',min:1,max:20,step:.5,unit:' Гц',value:7},randomness:{label:'Случайность',min:0,max:100,step:1,unit:'%',value:55},minOpacity:{label:'Мин. прозрачность',min:5,max:100,step:1,unit:'%',value:45}},
+ flash:{frequency:{label:'Частота',min:.2,max:5,step:.1,unit:' Гц',value:1},brightness:{label:'Яркость',min:100,max:400,step:5,unit:'%',value:220},color:{label:'Цвет вспышки',type:'color',value:'#ffffff'}},
+ glitch:{strength:{label:'Сила',min:0,max:30,step:1,unit:' px',value:7},frequency:{label:'Частота',min:1,max:20,step:.5,unit:' Гц',value:8},rgbDistance:{label:'RGB-сдвиг',min:0,max:30,step:1,unit:' px',value:6},slices:{label:'Количество срезов',min:1,max:12,step:1,unit:'',value:5}},
+ rgb:{distance:{label:'Расстояние RGB',min:0,max:30,step:1,unit:' px',value:6},angle:{label:'Угол',min:0,max:360,step:1,unit:'°',value:0}},
+ shimmer:{angle:{label:'Угол',min:0,max:360,step:1,unit:'°',value:25},width:{label:'Ширина блика',min:5,max:70,step:1,unit:'%',value:24},speed:{label:'Скорость',min:.3,max:6,step:.1,unit:' c',value:1.8},brightness:{label:'Яркость',min:100,max:350,step:5,unit:'%',value:190}},
+ hue:{angle:{label:'Угол оттенка',min:0,max:360,step:1,unit:'°',value:90},animate:{label:'Анимировать',type:'toggle',value:false},speed:{label:'Скорость',min:.5,max:10,step:.1,unit:' c',value:4}}
+};
+Object.entries(EFFECTS).forEach(([type,effect])=>{const schema=EFFECT_CONTROLS[type];if(schema)effect.defaults=Object.fromEntries(Object.entries(schema).map(([key,field])=>[key,field.value]))});

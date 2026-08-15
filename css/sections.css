@@ -1,0 +1,5 @@
+/* Delicate section identity — only navigation glow and controls change. */
+.section-animations{--section-accent:#9d7cff}.section-effects{--section-accent:#4de2e8}.section-particles{--section-accent:#8aa8ff}.section-interactions{--section-accent:#d66bdb}.section-transform{--section-accent:#7fc6ff}.section-presets{--section-accent:#b68cff}
+body[class^="section-"] .tool-nav button.active{border-left-color:var(--section-accent);color:var(--section-accent);box-shadow:inset 10px 0 25px color-mix(in srgb,var(--section-accent) 8%,transparent)}
+body[class^="section-"] .right-panel input[type="range"]{accent-color:var(--section-accent)}
+body[class^="section-"] .right-panel>header small{color:var(--section-accent);text-shadow:0 0 10px color-mix(in srgb,var(--section-accent) 55%,transparent)}
