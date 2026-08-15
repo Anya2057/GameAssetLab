@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Game Asset Lab — визуальный VFX-редактор</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">◇</span><span>GAME ASSET <b>LAB</b></span></a>
+    <div class="project-title"><span class="status-dot"></span><input id="projectName" value="Новый игровой ассет" aria-label="Название проекта"><span id="saveState">Сохранено</span></div>
+    <div class="top-actions">
+      <button class="icon-btn" id="undoBtn" title="Отменить" aria-label="Отменить">↶</button>
+      <button class="icon-btn" id="redoBtn" title="Повторить" aria-label="Повторить">↷</button>
+      <button class="btn" id="savePresetBtn">Сохранить пресет</button>
+      <button class="btn primary" id="exportBtn">Экспорт <span>↗</span></button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="left-panel panel">
+      <section class="asset-card" id="dropZone">
+        <input id="fileInput" type="file" accept="image/png,image/webp,image/jpeg,image/svg+xml" hidden>
+        <div class="upload-icon">↥</div>
+        <strong>Загрузить ассет</strong>
+        <small>PNG · WebP · JPG · SVG до 12 МБ</small>
+        <button class="btn compact" id="uploadBtn">Выбрать файл</button>
+      </section>
+      <section id="assetInfo" class="asset-info hidden"></section>
+      <nav class="tool-nav" aria-label="Разделы редактора">
+        <button data-section="transform"><span>⌖</span>Объект</button>
+        <button class="active" data-section="animations"><span>↝</span>Анимации <em id="animationCount">0</em></button>
+        <button data-section="effects"><span>✦</span>Эффекты <em id="effectCount">0</em></button>
+        <button data-section="particles"><span>⁙</span>Частицы <em id="particleCount">0</em></button>
+        <button data-section="interactions"><span>⌁</span>События <em id="interactionCount">0</em></button>
+        <button data-section="presets"><span>▦</span>Пресеты</button>
+      </nav>
+      <div class="future-tools"><small>БУДУЩИЕ МОДУЛИ</small><div><span>Состояния</span><span>Спрайты</span><span>Аудио</span></div></div>
+    </aside>
+
+    <section class="stage-column">
+      <div class="stage-toolbar">
+        <div class="segmented" id="modeSwitch"><button class="active" data-mode="edit">Редактирование</button><button data-mode="test">Тест</button></div>
+        <div class="play-controls"><button id="restartBtn" title="Перезапустить">↻</button><button id="playBtn" class="play" title="Воспроизвести">▶</button></div>
+        <div class="stage-options"><label>Фон <select id="backgroundSelect"><option value="grid">Сетка</option><option value="dark">Тёмный</option><option value="gray">Серый</option><option value="white">Белый</option></select></label><label>Масштаб <input id="sceneZoom" type="range" min="50" max="150" value="100"><output>100%</output></label></div>
+      </div>
+      <div class="stage grid" id="stage">
+        <canvas id="particleCanvas"></canvas>
+        <div id="emptyState" class="empty-state">
+          <div class="demo-crystal"><i></i><i></i><i></i></div>
+          <h1>Оживите игровой ассет</h1>
+          <p>Загрузите изображение, добавьте анимации, эффекты и реакции — без единой строки кода.</p>
+          <div><button class="btn primary" id="emptyUpload">Загрузить ассет</button><button class="btn" id="demoBtn">Попробовать демо</button></div>
+        </div>
+        <div id="assetRoot" class="asset-root hidden"><div class="anim-layer"><div class="effect-layer"><img id="assetImage" alt="Редактируемый игровой ассет"></div></div></div>
+        <div id="eventBadge" class="event-badge"></div>
+        <div class="stage-hint" id="stageHint">Перетащите объект, чтобы изменить положение</div>
+      </div>
+      <footer class="statusbar"><span><i class="status-dot"></i><b>Preview работает в реальном времени</b></span><span id="fps">60 FPS</span><span>Canvas 2D</span></footer>
+    </section>
+
+    <aside class="right-panel panel">
+      <header><div><small>РЕДАКТОР</small><h2 id="sectionTitle">Анимации</h2></div><button class="icon-btn" id="resetSection" title="Сбросить раздел">↺</button></header>
+      <div id="editorContent" class="editor-content"></div>
+      <footer><button class="danger-link" id="resetProject">Сбросить весь проект</button></footer>
+    </aside>
+  </main>
+
+  <div id="modalBackdrop" class="modal-backdrop hidden">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <header><div><small>GAME ASSET LAB</small><h2 id="modalTitle">Экспорт проекта</h2></div><button class="icon-btn" id="closeModal" aria-label="Закрыть">×</button></header>
+      <div id="modalBody"></div>
+    </section>
+  </div>
+  <div id="toastRegion" class="toasts" aria-live="polite"></div>
+  <!-- Classic defer-скрипты работают и при прямом открытии через file://. -->
+  <script defer src="js/presets.js"></script>
+  <script defer src="js/asset-manager.js"></script>
+  <script defer src="js/animation-engine.js"></script>
+  <script defer src="js/effects-engine.js"></script>
+  <script defer src="js/particles-engine.js"></script>
+  <script defer src="js/interactions-engine.js"></script>
+  <script defer src="js/exporter.js"></script>
+  <script defer src="js/app.js"></script>
+</body>
+</html>
