@@ -1,0 +1,5 @@
+/* Narrow inspector fixes */
+.preset-card.large{min-height:178px;display:flex;flex-direction:column}
+.preset-actions{display:flex;flex-direction:column;gap:5px;margin-top:auto;width:100%}
+.preset-actions button{display:block;width:100%;min-width:0;padding:6px 4px;white-space:normal;line-height:1.2}
+.preset-actions button:last-child{border-color:#51438a;color:#c8bcff}
