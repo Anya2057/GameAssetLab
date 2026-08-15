@@ -49,7 +49,7 @@
   function assetDb(){return new Promise((resolve,reject)=>{var request=indexedDB.open('game-asset-lab',1);request.onupgradeneeded=()=>request.result.createObjectStore('assets');request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error)})}
   async function assetStorePut(file){try{var db=await assetDb(),tx=db.transaction('assets','readwrite');tx.objectStore('assets').put(file,'current');await new Promise((resolve,reject)=>{tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});db.close()}catch{toast('Браузер не разрешил сохранить изображение локально',true)}}
   async function assetStoreDelete(){try{var db=await assetDb(),tx=db.transaction('assets','readwrite');tx.objectStore('assets').delete('current');db.close()}catch{}}
-  async function restoreAssetBlob(){try{var db=await assetDb(),tx=db.transaction('assets','readonly'),request=tx.objectStore('assets').get('current');request.onsuccess=async()=>{if(request.result&&!assetUrl){setAsset(await loadAsset(request.result));toast('Ассет восстановлен из локального хранилища')}db.close()}}catch{}}
+  async function restoreAssetBlob(){try{var db=await assetDb(),tx=db.transaction('assets','readonly'),request=tx.objectStore('assets').get('current');request.onsuccess=async()=>{if(request.result&&!assetUrl){var savedTransform={...config.transform};setAsset(await loadAsset(request.result));config.transform=savedTransform;renderPreview();persist();updateCoordinates();toast('Ассет восстановлен из локального хранилища')}db.close()}}catch{}}
   takeFile=async function(file){try{setAsset(await loadAsset(file));await assetStorePut(file)}catch(error){toast(error.message||'Не удалось загрузить изображение',true)}};restoreAssetBlob();
 
   // Real FPS meter, averaged to avoid noisy digits.
