@@ -32,3 +32,4 @@ const EFFECT_CONTROLS={
  hue:{angle:{label:'Угол оттенка',min:0,max:360,step:1,unit:'°',value:90},animate:{label:'Анимировать',type:'toggle',value:false},speed:{label:'Скорость',min:.5,max:10,step:.1,unit:' c',value:4}}
 };
 Object.entries(EFFECTS).forEach(([type,effect])=>{const schema=EFFECT_CONTROLS[type];if(schema)effect.defaults=Object.fromEntries(Object.entries(schema).map(([key,field])=>[key,field.value]))});
+Object.assign(PARTICLES,{dust:{name:'Пыль',icon:'·',color:'#c8bca4'},rain:{name:'Дождь',icon:'╱',color:'#7bbcff'},ash:{name:'Пепел',icon:'∙',color:'#a8a2a0'},fog:{name:'Туман',icon:'≈',color:'#aeb7c7'},bubbles:{name:'Пузыри',icon:'○',color:'#8ceaff'},confetti:{name:'Конфетти',icon:'▰',color:'#ff72d0'},leaves:{name:'Листья',icon:'⌁',color:'#71c76a'},petals:{name:'Лепестки',icon:'✿',color:'#ff9fc9'},embers:{name:'Угли',icon:'✧',color:'#ff7138'}});
